@@ -1,6 +1,7 @@
 package org.example.commonplacebackend.post;
 
 import jakarta.persistence.*;
+import org.example.commonplacebackend.page.Place;
 
 import java.util.Objects;
 
@@ -13,6 +14,10 @@ public class Post {
     private String description;
     @Lob
     private byte[] image;
+
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    private Place place;
 
 
     @Override
