@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class ProfileResponseDto {
-    private String id;
+    private int id;
     private String username;
     private String email;
     private Set<Post> posts;
@@ -23,11 +23,11 @@ public class ProfileResponseDto {
         return Objects.hashCode(id);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

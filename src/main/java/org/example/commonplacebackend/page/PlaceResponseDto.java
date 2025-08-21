@@ -5,14 +5,14 @@ import org.example.commonplacebackend.post.Post;
 import java.util.Set;
 
 public class PlaceResponseDto extends PlaceRequestDto {
-    private String Id;
+    private int Id;
     private Set<Post> posts;
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 

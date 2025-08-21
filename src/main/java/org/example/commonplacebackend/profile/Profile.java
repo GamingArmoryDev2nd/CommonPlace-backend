@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String email;
@@ -53,11 +53,11 @@ public class Profile {
         this.email = email;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 }
