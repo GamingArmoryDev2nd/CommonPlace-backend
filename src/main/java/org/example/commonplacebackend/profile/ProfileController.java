@@ -28,12 +28,6 @@ public class ProfileController {
         return ResponseEntity.ok(profileResponseDto);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProfileResponseDto createProfile(@RequestBody ProfileRequestDto profileRequestDto) {
-        return profileService.createProfile(profileRequestDto);
-    }
-
     @PatchMapping("/{id}")
     public ProfileResponseDto updateProfile(@PathVariable Integer id, @Valid @RequestBody ProfileRequestDto profileRequestDto) {
         return profileService.updateProfile(id, profileRequestDto);

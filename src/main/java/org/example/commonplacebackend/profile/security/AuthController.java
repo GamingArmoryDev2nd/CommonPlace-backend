@@ -1,11 +1,16 @@
 package org.example.commonplacebackend.profile.security;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.ast.Not;
 import org.example.commonplacebackend.profile.ProfileRequestDto;
+import org.example.commonplacebackend.profile.ProfileResponseDto;
 import org.example.commonplacebackend.profile.ProfileService;
 import org.example.commonplacebackend.profile.security.payload.JwtResponse;
 import org.example.commonplacebackend.profile.security.payload.LoginRequest;
 import org.example.commonplacebackend.profile.security.payload.MessageResponse;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +39,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateProfile(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -48,7 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody ProfileRequestDto profileRequest) {
+    public ResponseEntity<?> registerProfile(@Valid @RequestBody ProfileRequestDto profileRequest) {
         if (profileService.findByUsername(profileRequest.getUsername()).isPresent()) {
             return ResponseEntity
                     .badRequest()
@@ -60,9 +65,7 @@ public class AuthController {
                     .body(new MessageResponse("Fehler: Diese E-Mail Adresse ist bereits vergeben!"));
         }
 
-
-        profileService.createProfile(profileRequest);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        ProfileResponseDto result = profileService.createProfile(profileRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

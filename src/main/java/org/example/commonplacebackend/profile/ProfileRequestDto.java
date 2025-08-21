@@ -11,5 +11,6 @@ public class ProfileRequestDto extends ProfileResponseDto {
     }
 
     public void setPassword(String password) {
+        this.password = password;
     }
 }
