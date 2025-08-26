@@ -1,7 +1,7 @@
 package org.example.commonplacebackend.post;
 
 import jakarta.persistence.*;
-import org.example.commonplacebackend.page.Place;
+import org.example.commonplacebackend.place.Place;
 
 import java.util.Objects;
 

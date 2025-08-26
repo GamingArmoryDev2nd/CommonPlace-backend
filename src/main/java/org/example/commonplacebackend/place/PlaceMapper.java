@@ -1,4 +1,4 @@
-package org.example.commonplacebackend.page;
+package org.example.commonplacebackend.place;
 
 public class PlaceMapper {
     public static Place fromDto(PlaceRequestDto requestDto) {

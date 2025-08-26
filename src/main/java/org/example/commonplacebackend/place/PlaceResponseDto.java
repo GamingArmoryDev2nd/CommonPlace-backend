@@ -1,4 +1,4 @@
-package org.example.commonplacebackend.page;
+package org.example.commonplacebackend.place;
 
 import org.example.commonplacebackend.post.Post;
 

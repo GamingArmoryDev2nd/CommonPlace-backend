@@ -1,4 +1,4 @@
-package org.example.commonplacebackend.page;
+package org.example.commonplacebackend.place;
 
 import jakarta.persistence.EntityExistsException;
 import org.springframework.stereotype.Service;
