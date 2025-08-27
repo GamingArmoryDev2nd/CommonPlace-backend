@@ -3,7 +3,7 @@
 A Spring Boot backend with a MySQL database, packaged for Docker. This README explains how to build and run the app the same way you just did — using the provided Docker Compose setup.
 
 > **TL;DR**
-> 1) Build the backend image: `./gradlew bootBuildImage --imageName=commonplace-backend:latest`  
+> 1) Build the backend image: `./gradlew bootBuildImage`  
 > 2) Start everything: `docker compose up -d`  
 > 3) Check logs: `docker compose logs -f backend`
 
@@ -27,14 +27,17 @@ my-project/
 ## Build the backend image
 Use Spring Boot Buildpacks (no Dockerfile needed):
 
-**macOS/Linux**
+By default, the imageName is set in the `build.gradle` so you just need to execute:
+
+```bash
+./gradew bootBuildImage 
+```
+
+else execute the commands below 
 ```bash
 ./gradlew bootBuildImage --imageName=commonplace-backend:latest
 ```
-**Windows (PowerShell/CMD)**
-```bat
-./gradlew.bat bootBuildImage --imageName=commonplace-backend:latest
-```
+or set the imageName in the `build.gradle`.
 
 > Image names must be lowercase and may include `[a-z0-9._-]` only.
 
