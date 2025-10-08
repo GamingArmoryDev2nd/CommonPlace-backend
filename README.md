@@ -107,18 +107,15 @@ docker-compose logs -f db
 docker-compose logs -f backend
 ```
 
-Stop everything:
+Stop container:
 
 ```bash
-docker-compose down -v
+docker-compose stop
 ```
-
-Stop everything and delete:
 
 ```bash
 docker-compose down
 ```
-
 Reset the database (⚠️ deletes all DB data):
 
 ## Useful commands
