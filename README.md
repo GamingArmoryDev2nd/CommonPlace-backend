@@ -1,19 +1,22 @@
 # CommonPlace Backend
 
-A Spring Boot backend with a MySQL database, packaged for Docker. This README explains how to build and run the app the same way you just did — using the provided Docker Compose setup.
+A Spring Boot backend with a MySQL database, packaged for Docker. This README explains how to build and run the app
+using the provided Docker Compose setup.
 
 > **TL;DR**
-> 1) Build the backend image: `./gradlew bootBuildImage`  
-> 2) Start everything: `docker compose up -d`  
-> 3) Check logs: `docker compose logs -f backend`
+> 1) Build the backend image: `./gradlew bootBuildImage`
+> 2) Push the image to your registry
+> 3) Use the provided `docker-compose.yml` in your frontend project to run the backend and database together.
 
 ---
 
 ## Prerequisites
+
 - **Docker Desktop** (Compose v2; you should have the `docker compose` command)
 - **JDK 21** *(only needed if you build with Gradle; the wrapper downloads Gradle automatically)*
 
 ## Project layout (typical)
+
 ```
 my-project/
 ├─ build.gradle
@@ -25,6 +28,7 @@ my-project/
 ```
 
 ## Build the backend image
+
 Use Spring Boot Buildpacks (no Dockerfile needed):
 
 By default, the imageName is set in the `build.gradle` so you just need to execute:
@@ -33,16 +37,34 @@ By default, the imageName is set in the `build.gradle` so you just need to execu
 ./gradew bootBuildImage 
 ```
 
-else execute the commands below 
+else execute the commands below
+
 ```bash
 ./gradlew bootBuildImage --imageName=commonplace-backend:latest
 ```
-or set the imageName in the `build.gradle`.
 
-> Image names must be lowercase and may include `[a-z0-9._-]` only.
+## Push the image to your registry
 
-## Run with Docker Compose
-The following compose file is known-good for this project. **Keep it exactly as-is** unless you know what you’re changing.
+To Push the image to your registry, first log in (You need a **Personal Access Token** for GitHub Container Registry):
+
+```bash
+docker login ghcr.io
+```
+
+Tag and push the image to your repository. (GitHub Container Registry example):
+
+```bash
+docker -t commonplace-backend:latest ghcr.io/your-github-username/commonplace-backend:latest
+docker push ghcr.io/your-github-username/commonplace-backend:latest
+```
+
+---
+
+## Run with Docker Compose in your frontend project
+
+Now if you want to run the backend with its database, you can use Docker Compose.
+Add the following `componse.yaml` file to your frontend project.
+This file setup is known-good for this project. **Keep it exactly as-is** unless you know what you’re changing.
 
 ```yaml
 services:
@@ -54,7 +76,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin1234
     healthcheck:
-      test: ["CMD-SHELL","mysqladmin ping -h 127.0.0.1 -uroot -p1234 --silent"]
+      test: [ "CMD-SHELL","mysqladmin ping -h 127.0.0.1 -uroot -p1234 --silent" ]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -74,34 +96,33 @@ services:
 ```
 
 Start the stack:
+
 ```bash
 docker compose up -d
 ```
+
 Tail logs:
+
 ```bash
 docker compose logs -f db
 # in a second terminal
 docker compose logs -f backend
 ```
+
 Stop everything:
+
 ```bash
 docker compose down
 ```
+
 Reset the database (⚠️ deletes all DB data):
+
 ```bash
 docker compose down -v
 ```
 
-## Running the backend locally (optional)
-If you want to run the Spring Boot app on your host and keep MySQL in Docker, you’ll need to expose port **3306** from the DB service (uncomment below), then use a `localhost` JDBC URL.
-
-
-Run the app locally:
-```bash
-./gradlew bootRun
-```
-
 ## Useful commands
+
 - Shell into the DB container:
   ```bash
   docker compose exec db bash
