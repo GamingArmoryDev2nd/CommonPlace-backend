@@ -2,17 +2,15 @@
 
 A Spring Boot backend with a MySQL database, packaged for Docker. This README explains how to build and run the app
 using the provided Docker Compose setup.
-
 > **TL;DR**
 > 1) Build the backend image: `./gradlew bootBuildImage`
 > 2) Push the image to your registry
-> 3) Use the provided `docker-compose.yml` in your frontend project to run the backend and database together.
-
+> 3) Use the provided `docker-compose.yaml` in your frontend project to run the backend and database together.
 ---
 
 ## Prerequisites
 
-- **Docker Desktop** (Compose v2; you should have the `docker compose` command)
+- **Docker Desktop** (Compose v2; you should have the `docker-compose` command)
 - **JDK 21** *(only needed if you build with Gradle; the wrapper downloads Gradle automatically)*
 
 ## Project layout (typical)
@@ -30,7 +28,6 @@ my-project/
 ## Build the backend image
 
 Use Spring Boot Buildpacks (no Dockerfile needed):
-
 By default, the imageName is set in the `build.gradle` so you just need to execute:
 
 ```bash
@@ -63,7 +60,7 @@ docker push ghcr.io/your-github-username/commonplace-backend:latest
 ## Run with Docker Compose in your frontend project
 
 Now if you want to run the backend with its database, you can use Docker Compose.
-Add the following `componse.yaml` file to your frontend project.
+Add the following `docker-componse.yaml` file to your frontend project.
 This file setup is known-good for this project. **Keep it exactly as-is** unless you know what you’re changing.
 
 ```yaml
@@ -99,40 +96,42 @@ services:
 Start the stack:
 
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 Tail logs:
 
 ```bash
-docker compose logs -f db
+docker-compose logs -f db
 # in a second terminal
-docker compose logs -f backend
+docker-compose logs -f backend
 ```
 
 Stop everything:
 
 ```bash
-docker compose down
+docker-compose down -v
+```
+
+Stop everything and delete:
+
+```bash
+docker-compose down
 ```
 
 Reset the database (⚠️ deletes all DB data):
-
-```bash
-docker compose down -v
-```
 
 ## Useful commands
 
 - Shell into the DB container:
   ```bash
-  docker compose exec db bash
+  docker-compose exec db bash
   ```
 - Quick MySQL check:
   ```bash
-  docker compose exec db mysql -uadmin -padmin1234 -e "SELECT VERSION(); SHOW DATABASES;"
+  docker-compose exec db mysql -uadmin -padmin1234 -e "SELECT VERSION(); SHOW DATABASES;"
   ```
 - View tables created by Hibernate:
   ```bash
-  docker compose exec db mysql -uadmin -padmin1234 -e "USE commonplace; SHOW TABLES;"
+  docker-compose exec db mysql -uadmin -padmin1234 -e "USE commonplace; SHOW TABLES;"
   ```
