@@ -1,23 +1,35 @@
 package org.example.commonplacebackend.post;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.example.commonplacebackend.place.Place;
+import org.example.commonplacebackend.profile.Profile;
 
 import java.util.Objects;
 
 @Entity
 public class Post {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
+    @Column
     private String title;
+    @NotNull
+    @Column
     private String description;
     @Lob
+    @Column
     private byte[] image;
 
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
 
     @Override
@@ -62,5 +74,21 @@ public class Post {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

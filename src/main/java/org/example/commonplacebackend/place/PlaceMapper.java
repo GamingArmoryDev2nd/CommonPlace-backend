@@ -5,6 +5,7 @@ public class PlaceMapper {
         Place place = new Place();
         place.setName(requestDto.getName());
         place.setDescription(requestDto.getDescription());
+        place.setProfile(requestDto.getProfile());
         return place;
     }
 

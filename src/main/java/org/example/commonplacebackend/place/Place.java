@@ -1,7 +1,9 @@
 package org.example.commonplacebackend.place;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.example.commonplacebackend.post.Post;
+import org.example.commonplacebackend.profile.Profile;
 
 import java.util.Objects;
 import java.util.Set;
@@ -9,12 +11,22 @@ import java.util.Set;
 @Entity
 public class Place {
     @Id
+    @Column
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
+    @Column
     private String name;
+    @Column
     private String description;
     @OneToMany(mappedBy = "place")
     private Set<Post> posts;
+
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     public String getName() {
         return name;
@@ -46,6 +58,14 @@ public class Place {
 
     public int getId() {
         return id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     @Override

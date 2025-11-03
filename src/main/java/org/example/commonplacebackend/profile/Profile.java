@@ -1,21 +1,30 @@
 package org.example.commonplacebackend.profile;
 
 import jakarta.persistence.*;
+import org.example.commonplacebackend.place.Place;
+import org.example.commonplacebackend.post.Post;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Profile {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    @OneToMany(mappedBy = "profile")
+    private Set<Place> places;
+
+    @OneToMany(mappedBy = "profile")
+    private Set<Post> posts;
 
     @Override
     public boolean equals(Object o) {

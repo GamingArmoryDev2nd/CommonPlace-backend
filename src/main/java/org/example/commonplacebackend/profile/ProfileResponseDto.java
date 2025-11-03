@@ -10,6 +10,7 @@ public class ProfileResponseDto {
     private String username;
     private String email;
     private Set<Post> posts;
+    private Set<Profile> profiles;
 
     @Override
     public boolean equals(Object o) {
@@ -53,5 +54,13 @@ public class ProfileResponseDto {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(Set<Profile> profiles) {
+        this.profiles = profiles;
     }
 }

@@ -5,18 +5,20 @@ import java.nio.charset.StandardCharsets;
 
 public class PostMapper {
 
-    public static Post fromRequestDto(PostRequestDto dto) {
+    public static Post fromDto(PostRequestDto dto) {
         Post post = new Post();
         post.setTitle(dto.getTitle());
         post.setDescription(dto.getDescription());
         if (dto.getImage() != null) {
             post.setImage(dto.getImage().getBytes());
         }
+        post.setProfile(dto.getProfile());
+        post.setPlace(dto.getPlace());
 
         return post;
     }
 
-    public static PostResponseDto fromPost(Post post) {
+    public static PostResponseDto toDto(Post post) {
         PostResponseDto responseDto = new PostResponseDto();
         responseDto.setId(post.getId());
         responseDto.setTitle(post.getTitle());
