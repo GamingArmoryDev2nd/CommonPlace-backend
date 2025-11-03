@@ -79,7 +79,7 @@ services:
       retries: 20
 
   backend:
-    image: ghcr.io/gamingarmorydev2nd/commonplace-backend:v1.0.0
+    image: ghcr.io/gamingarmorydev2nd/commonplace-backend:v1.0.1
     pull_policy: always
     depends_on:
       db:
