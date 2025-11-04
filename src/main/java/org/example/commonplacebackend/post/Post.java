@@ -13,10 +13,8 @@ public class Post {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
     @Column
     private String title;
-    @NotNull
     @Column
     private String description;
     @Lob
