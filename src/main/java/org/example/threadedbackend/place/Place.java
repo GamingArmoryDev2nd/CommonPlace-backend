@@ -12,18 +12,14 @@ import java.util.Set;
 public class Place {
     @Id
     @Column
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
-    @Column
+    @Column(nullable = false)
     private String name;
     @Column
     private String description;
     @OneToMany(mappedBy = "place")
     private Set<Post> posts;
-
-
     @ManyToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
