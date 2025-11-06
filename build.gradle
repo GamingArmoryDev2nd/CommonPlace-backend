@@ -46,5 +46,5 @@ tasks.named('test') {
 }
 
 tasks.named('bootBuildImage'){
-    imageName = 'commonplace-backend:latest'
+    imageName = 'threaded-backend:latest'
 }

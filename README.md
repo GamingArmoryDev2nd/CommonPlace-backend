@@ -1,4 +1,4 @@
-# CommonPlace Backend
+# Threaded Backend
 
 A Spring Boot backend with a MySQL database, packaged for Docker. This README explains how to build and run the app
 using the provided Docker Compose setup.
@@ -37,7 +37,7 @@ By default, the imageName is set in the `build.gradle` so you just need to execu
 else execute the commands below
 
 ```bash
-./gradlew bootBuildImage --imageName=commonplace-backend:latest
+./gradlew bootBuildImage --imageName=threaded-backend:latest
 ```
 
 ## Push the image to your registry
@@ -51,8 +51,8 @@ docker login ghcr.io
 Tag and push the image to your repository. (GitHub Container Registry example):
 
 ```bash
-docker -t commonplace-backend:latest ghcr.io/your-github-username/commonplace-backend:latest
-docker push ghcr.io/your-github-username/commonplace-backend:latest
+docker -t threaded-backend:latest ghcr.io/your-github-username/threaded-backend:latest
+docker push ghcr.io/your-github-username/threaded-backend:latest
 ```
 
 ---
@@ -68,7 +68,7 @@ services:
   db:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: commonplace
+      MYSQL_DATABASE: threaded
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin1234
@@ -79,13 +79,13 @@ services:
       retries: 20
 
   backend:
-    image: ghcr.io/gamingarmorydev2nd/commonplace-backend:v1.0.1
+    image: ghcr.io/gamingarmorydev2nd/threaded-backend:v1.0.0
     pull_policy: always
     depends_on:
       db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/commonplace?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/threaded?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin1234
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -130,5 +130,5 @@ Reset the database (⚠️ deletes all DB data):
   ```
 - View tables created by Hibernate:
   ```bash
-  docker-compose exec db mysql -uadmin -padmin1234 -e "USE commonplace; SHOW TABLES;"
+  docker-compose exec db mysql -uadmin -padmin1234 -e "USE threaded; SHOW TABLES;"
   ```

@@ -2,7 +2,7 @@ services:
   db:
     image: mysql:latest
     environment:
-      MYSQL_DATABASE: commonplace
+      MYSQL_DATABASE: threaded
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin1234
@@ -13,13 +13,13 @@ services:
       retries: 20
 
   backend:
-    image: ghcr.io/gamingarmorydev2nd/commonplace-backend:v1.0.0
+    image: ghcr.io/gamingarmorydev2nd/threaded-backend:v1.0.0
     pull_policy: always
     depends_on:
       db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/commonplace?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/threaded?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin1234
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
